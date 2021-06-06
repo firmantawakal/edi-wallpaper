@@ -48,7 +48,6 @@ class Orders extends CI_Controller {
  
         $orders['orders'] = $this->order->get_all_orders($config['per_page'], $page);
         $orders['pagination'] = $this->pagination->create_links();
-
         $this->load->view('header', $params);
         $this->load->view('orders/orders', $orders);
         $this->load->view('footer');
@@ -91,5 +90,52 @@ class Orders extends CI_Controller {
         $this->session->set_flashdata('order_flash', 'Status berhasil diperbarui');
 
         redirect('admin/orders/view/'. $order);
+    }
+
+    public function printberkas(){
+        $range_date = $this->input->post('reportrange',TRUE);
+			
+        $string = explode(' - ',$range_date);
+
+        $date11 = explode('/',$string[0]);
+        $date22 = explode('/',$string[1]);
+
+        $date1 = $date11[2].'-'.$date11[1].'-'.$date11[0];
+        $date2 = $date22[2].'-'.$date22[1].'-'.$date22[0];
+        
+        $orders['orders'] = $this->order->get_all_orders_byrange($date1, $date2);
+
+        // print_r($date2);die;
+        // echo json_encode($orders);die;
+        $orders['date1'] = $this->tgl_indo($date1);
+        $orders['date2'] = $this->tgl_indo($date2);
+		// $data['suratKeluar'] = $this->m_suratKeluar->get_all($date1,$date2);
+
+		$this->load->view('orders/v_printberkas', $orders);
+		// die;
+	}
+
+    function tgl_indo($tanggal){
+        $bulan = array (
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $tanggal);
+        
+        // variabel pecahkan 0 = tanggal
+        // variabel pecahkan 1 = bulan
+        // variabel pecahkan 2 = tahun
+     
+        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
     }
 }

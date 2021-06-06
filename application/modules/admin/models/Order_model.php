@@ -28,6 +28,22 @@ class Order_model extends CI_Model {
         return $orders->result();
     }
 
+    public function get_all_orders_byrange($d1, $d2)
+    {
+        $orders = $this->db->query("
+            SELECT o.id, o.order_number, o.order_date, o.order_status, o.payment_method, o.total_price, o.total_items, c.name AS coupon, cu.name AS customer
+            FROM orders o
+            LEFT JOIN coupons c
+                ON c.id = o.coupon_id
+            JOIN customers cu
+                ON cu.user_id = o.user_id
+            WHERE DATE(o.order_date) >= '$d1' and DATE(o.order_date) <= '$d2'
+            ORDER BY o.order_date DESC
+        ");
+
+        return $orders->result();
+    }
+
     public function latest_orders()
     {
         $orders = $this->db->query("

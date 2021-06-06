@@ -27,8 +27,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="col">
       <div class="card">
         <!-- Card header -->
-        <div class="card-header">
-          <h3 class="mb-0">Kelola Order</h3>
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Kelola Order</h3>
+            </div>
+            <div class="col-md-4 text-right">
+            <form action="<?php echo site_url('admin/orders/printberkas') ?>" target="_blank" method="POST">
+              <div class="input-group">
+                <input type="text" name="reportrange" id="reportrange" class="form-control" placeholder="Range Tanggal" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+                <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-primary" type="submit">Print</button>
+                </div>
+              </div>
+            </form>
+                  
+            </div>
+          </div>
         </div>
 
         <?php if (count($orders) > 0) : ?>
