@@ -502,4 +502,35 @@ class Products extends CI_Controller {
         $this->output->set_content_type('application/json')
             ->set_output($response);
     }
+
+    public function printberkas(){
+        $data['products'] = $this->product->get_all_products_nolimit();
+        $data['date1'] = $this->tgl_indo(date('Y-m-d'));
+
+		$this->load->view('products/v_printberkas', $data);
+	}
+
+    function tgl_indo($tanggal){
+        $bulan = array (
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $tanggal);
+        
+        // variabel pecahkan 0 = tanggal
+        // variabel pecahkan 1 = bulan
+        // variabel pecahkan 2 = tahun
+     
+        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+    }
 }

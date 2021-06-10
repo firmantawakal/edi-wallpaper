@@ -22,8 +22,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col">
           <div class="card">
             <!-- Card header -->
-            <div class="card-header">
-              <h3 class="mb-0">Kelola Produk</h3>
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Kelola Produk</h3>
+                </div>
+                <div class="col-md-4 text-right">
+                  <a target="_blank" class="btn btn-outline-primary" href="<?php echo site_url('admin/products/printberkas') ?>">Print</a>
+                </div>
+              </div>
             </div>
 
             <?php if ( count($products) > 0) : ?>
